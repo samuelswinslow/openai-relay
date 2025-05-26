@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Assistant</title>
+</head>
+<body>
+  <h2>Ask me something</h2>
+  <input type="text" id="prompt" placeholder="Type your question...">
+  <button onclick="askOpenAI()">Send</button>
+  <p id="response"></p>
+
+  <script>
+    async function askOpenAI() {
+      const prompt = document.getElementById('prompt').value;
+      const responseElement = document.getElementById('response');
+      try {
+        const res = await fetch('https://openai-relay-tykr.onrender.com/api/ask', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt })
+        });
+        const data = await res.json();
+        responseElement.textContent = data.reply;
+      } catch (error) {
+        responseElement.textContent = 'Error: ' + error.message;
+      }
+    }
+  </script>
+</body>
+</html>
