@@ -1,7 +1,11 @@
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
-require('dotenv').config();
+
+// ✅ Dotenv is only for local testing, but let's move it up
+require('dotenv').config(); // Local testing, optional
+
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
 const app = express();
 app.use(cors());
@@ -18,7 +22,7 @@ app.post('/api/ask', async (req, res) => {
             temperature: 0.5
         }, {
             headers: {
-                'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+                'Authorization': `Bearer ${OPENAI_API_KEY}`,
                 'Content-Type': 'application/json'
             }
         });
@@ -32,4 +36,4 @@ app.post('/api/ask', async (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Relay server running on port ${PORT}`));
-require('dotenv').config();
+
