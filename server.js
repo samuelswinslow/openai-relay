@@ -15,6 +15,8 @@ app.post('/api/ask', async (req, res) => {
     const { prompt } = req.body;
 
     try {
+        console.log("OPENAI_API_KEY:", OPENAI_API_KEY); // Add this line
+
         const response = await axios.post('https://api.openai.com/v1/chat/completions', {
             model: 'gpt-3.5-turbo',
             messages: [{ role: 'user', content: prompt }],
